@@ -1,24 +1,31 @@
+# pygame imports
 from pygame import *
 from pygame.locals import *
 
+# stdlib imports
 import requests
 import random
 import os
 
+# directory of the app
 localdir = os.path.dirname(os.path.abspath(__file__))
 print(localdir)
 
 chars = 'abcdefghijklmnopqrstuvwxyz'
 
+# there's two methods used to get random images:
+# 1) sequence of 3 to 6 random letters
 def rndseq():
     seq = ''
     for i in range(random.randint(3, 6)):
         seq += random.choice(chars)
     return seq
 
+# 2) the same letter repeated between 6 and 20 times
 def rptseq():
     return random.choice(chars)*random.randint(6, 20)
 
+# search on qwant and download a random one from the first 50
 def getimg():
     while True:
         query = random.choice((rndseq, rptseq))()
@@ -53,6 +60,7 @@ def getimg():
             return path
         print('no images found')
 
+# display the new img
 def newimg():
     try:
         window.fill((0, 0, 0))
@@ -75,7 +83,7 @@ def newimg():
     except BaseException as err:
         print('error %r, cancel' %err)
 
-
+# pygame setup stuff i dunno
 init()
 
 running = True
